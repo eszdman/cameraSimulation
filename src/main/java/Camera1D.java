@@ -6,6 +6,7 @@ public class Camera1D {
     int whiteLevel;
     int blackLevel;
     double gain;
+    double exposure;
     Enviroment currentEnvironment;
     public Camera1D(int resolution, int whiteLevel, int blackLevel){
         this.resolution = resolution;
@@ -13,16 +14,18 @@ public class Camera1D {
         this.whiteLevel = whiteLevel;
         this.blackLevel = blackLevel;
         gain = 1.0;
+        exposure = 1.0;
     }
     public void setGain(double gain){
         this.gain = Math.max(1.0,gain);
+        this.exposure = Math.max(1.0,exposure);
     }
     public void setEnvironment(Enviroment environment){
         this.currentEnvironment = environment;
     }
     public void shot(){
         for(int i =0; i<values.length;i++){
-            values[i] = (int)(currentEnvironment.brightness[i]*whiteLevel*gain);
+            values[i] = (int)(currentEnvironment.brightness[i]*whiteLevel*gain*exposure);
             values[i] = Math.max(Math.min(whiteLevel,values[i]),blackLevel);
         }
     }
